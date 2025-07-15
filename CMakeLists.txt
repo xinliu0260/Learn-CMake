@@ -15,10 +15,22 @@ add_subdirectory(string_utils)
 add_subdirectory(src)
 # add_subdirectory(tests)
 
-# # 安装目标
-# install(DIRECTORY include/ DESTINATION include)
-# install(TARGETS mylib_shared mylib_static DESTINATION lib)
-# install(TARGETS myapp DESTINATION bin)
+# 安装目标
+if(WIN32)
+    # 设置安装目录的前缀
+    set(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR}/release)
+    # 安装可执行文件和动态链接库到同一个目录下
+    install(TARGETS app string_utils_shared DESTINATION .)
+elseif(UNIX)
+    # 设置安装目录的前缀
+    set(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR}/release)
+    set(CMAKE_INSTALL_RPATH "$ORIGIN/../lib")
+    set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
+    # 安装可执行文件
+    install(TARGETS app DESTINATION bin)
+    # 安装动态链接库
+    install(TARGETS string_utils_shared lib)
+endif()
 
 # # 打包配置
 # set(CPACK_PACKAGE_VENDOR "Your Company")
