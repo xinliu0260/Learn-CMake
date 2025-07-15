@@ -32,14 +32,24 @@ elseif(UNIX)
     install(TARGETS string_utils_shared lib)
 endif()
 
-# # 打包配置
-# set(CPACK_PACKAGE_VENDOR "Your Company")
-# set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "A simple CMake project example")
-# set(CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
-# set(CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
-# set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
-# set(CPACK_GENERATOR "ZIP;TGZ")
-# include(CPack)
+# 打包配置
+set(CPACK_PACKAGE_NAME "Learn-CMake")
+set(CPACK_PACKAGE_VERSION "V1.0.0")
+set(CPACK_PACKAGE_VENDOR "CarpFlow Tian")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "A simple CMake example project.")  # 描述
+# 指定生成的包格式（跨平台常用ZIP和TGZ）
+if(WIN32)
+    # Windows下生成ZIP包
+    set(CPACK_GENERATOR "ZIP")
+    set(CPACK_INSTALL_PREFIX "C:/Program Files (x86)")
+elseif(UNIX)
+    # Linux/macOS下生成TGZ包
+    set(CPACK_GENERATOR "TGZ")
+endif()
+# 包文件名称格式（可选，默认会自动生成）
+set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}-${CMAKE_SYSTEM_NAME}")
+# 启用CPack模块（必须放在配置变量之后）
+include(CPack)
 
 # # 启用测试
 # enable_testing()
