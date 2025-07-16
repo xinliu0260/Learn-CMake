@@ -13,7 +13,7 @@ add_compile_options(-Wall -Wextra)
 add_subdirectory(calc)
 add_subdirectory(string_utils)
 add_subdirectory(src)
-# add_subdirectory(tests)
+
 
 # 安装目标
 if(WIN32)
@@ -51,5 +51,6 @@ set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}-${CM
 # 启用CPack模块（必须放在配置变量之后）
 include(CPack)
 
-# # 启用测试
-# enable_testing()
+# 启用测试
+enable_testing()
+add_subdirectory(test)
